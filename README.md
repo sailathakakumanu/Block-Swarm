@@ -28,7 +28,7 @@ Before you begin, ensure you have the following installed:
 2. By default, the application expects the following credentials. If your local MySQL setup differs, update `blockchain-storage/src/main/resources/application.properties`:
    ```properties
    spring.datasource.username=root
-   spring.datasource.password=Omkar@2007
+   spring.datasource.password=your_password
    ```
 
 ### 2. Blockchain Configuration (Ganache)
@@ -43,7 +43,7 @@ Before you begin, ensure you have the following installed:
 ### 3. Backend Setup
 1. Open a terminal and navigate to the backend directory:
    ```bash
-   cd blockchain-storage
+   cd backend
    ```
 2. Clean and build the project using Maven:
    ```bash
