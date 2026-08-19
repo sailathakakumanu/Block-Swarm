@@ -38,12 +38,12 @@ public class WebConfig {
                 "X-Block-Number",
                 "Content-Disposition"));
 
-        config.setAllowCredentials(true);  // Required for session cookies
+        config.setAllowCredentials(true); // Required for session cookies
         config.setMaxAge(3600L); // Cache pre-flight response for 1 hour
 
         source.registerCorsConfiguration("/**", config);
 
-        System.out.println("🌐 Global CORS Filter initialized (credentials enabled)");
+        System.out.println("Global CORS Filter initialized (credentials enabled)");
         return new CorsFilter(source);
     }
 }

@@ -50,7 +50,7 @@ public class ChaCha20Service {
         System.arraycopy(nonce, 0, result, 0, NONCE_SIZE);
         System.arraycopy(ciphertext, 0, result, NONCE_SIZE, ciphertext.length);
 
-        System.out.println("🔐 ChaCha20-Poly1305 Encryption done. Output size: " + result.length + " bytes");
+        System.out.println("ChaCha20-Poly1305 Encryption done. Output size: " + result.length + " bytes");
         return result;
     }
 
@@ -61,7 +61,7 @@ public class ChaCha20Service {
      */
     public byte[] decrypt(byte[] encryptedData, SecretKey key) throws Exception {
         if (encryptedData.length < NONCE_SIZE) {
-            throw new IllegalArgumentException("❌ Payload too short to contain a valid nonce.");
+            throw new IllegalArgumentException("Payload too short to contain a valid nonce.");
         }
 
         byte[] nonce = new byte[NONCE_SIZE];

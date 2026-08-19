@@ -24,7 +24,7 @@ public class AuthController {
     public ResponseEntity<Map<String, Object>> handleAllExceptions(Exception ex) {
         StringWriter sw = new StringWriter();
         ex.printStackTrace(new PrintWriter(sw));
-        System.err.println("🔥 UNEXPECTED AUTH ERROR: " + ex.getMessage());
+        System.err.println(" UNEXPECTED AUTH ERROR: " + ex.getMessage());
         return ResponseEntity.status(500).body(Map.of(
                 "status", "ERROR",
                 "message", ex.getMessage() != null ? ex.getMessage() : "Unknown 500 Error",

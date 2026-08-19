@@ -13,7 +13,7 @@ public class EdgeCacheService {
 
     public boolean isInEdgeCache(String fileHash) {
         boolean exists = Files.exists(Paths.get(edgeDir, fileHash + "_cached"));
-        System.out.println("⚡ Edge Cache: " + (exists ? "HIT ✅" : "MISS ❌"));
+        System.out.println("⚡ Edge Cache: " + (exists ? "HIT ✅" : "MISS "));
         return exists;
     }
 
@@ -34,7 +34,7 @@ public class EdgeCacheService {
             Files.deleteIfExists(Paths.get(edgeDir, fileHash + "_cached"));
             System.out.println("🗑 Edge cache invalidated for: " + fileHash);
         } catch (Exception e) {
-            System.err.println("⚠️  Could not invalidate cache: " + e.getMessage());
+            System.err.println("Could not invalidate cache: " + e.getMessage());
         }
     }
 }

@@ -27,9 +27,9 @@ public class AdminInitializer {
                 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
                 User admin = new User(adminUsername, encoder.encode(adminPassword), "ADMIN");
                 userRepository.save(admin);
-                System.out.println("🔑 Admin account created: " + adminUsername);
+                System.out.println("Admin account created: " + adminUsername);
             } else {
-                System.out.println("🔑 Admin account already exists: " + adminUsername);
+                System.out.println("Admin account already exists: " + adminUsername);
             }
         };
     }

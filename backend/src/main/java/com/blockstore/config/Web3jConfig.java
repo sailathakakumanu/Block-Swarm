@@ -19,14 +19,14 @@ public class Web3jConfig {
     @Bean
     public Web3j web3j() {
         Web3j web3j = Web3j.build(new HttpService(rpcUrl));
-        System.out.println("✅ Connected to Ganache at: " + rpcUrl);
+        System.out.println("Connected to Ganache at: " + rpcUrl);
         return web3j;
     }
 
     @Bean
     public Credentials credentials() {
         Credentials creds = Credentials.create(privateKey);
-        System.out.println("✅ Wallet Address: " + creds.getAddress());
+        System.out.println("Wallet Address: " + creds.getAddress());
         return creds;
     }
 }

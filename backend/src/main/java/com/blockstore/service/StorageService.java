@@ -53,7 +53,7 @@ public class StorageService {
         byte[] parity = computeXorParity(frag1, frag2, frag3);
         writeFragment(edgeDir, fileHash + "_parity", parity);
 
-        System.out.println("📂 Fragments stored:");
+        System.out.println("Fragments stored:");
         System.out.println("   Node1 → frag1 (" + frag1.length + " bytes)");
         System.out.println("   Node2 → frag2 (" + frag2.length + " bytes)");
         System.out.println("   Node3 → frag3 (" + frag3.length + " bytes)");
@@ -74,36 +74,36 @@ public class StorageService {
         int missing = 0;
         if (frag1 == null) {
             missing++;
-            System.out.println("⚠️  frag1 MISSING");
+            System.out.println("frag1 MISSING");
         }
         if (frag2 == null) {
             missing++;
-            System.out.println("⚠️  frag2 MISSING");
+            System.out.println("frag2 MISSING");
         }
         if (frag3 == null) {
             missing++;
-            System.out.println("⚠️  frag3 MISSING");
+            System.out.println("frag3 MISSING");
         }
 
         if (missing > 1) {
-            throw new RuntimeException("❌ Too many fragments missing! Cannot recover.");
+            throw new RuntimeException("Too many fragments missing! Cannot recover.");
         }
 
         if (missing == 1) {
             byte[] parity = tryReadFragment(edgeDir, fileHash + "_parity");
             if (parity == null) {
-                throw new RuntimeException("❌ Parity fragment missing — cannot recover.");
+                throw new RuntimeException(" Parity fragment missing — cannot recover.");
             }
             System.out.println("🔧 Attempting XOR parity recovery...");
             if (frag1 == null) {
                 frag1 = xorRecover(parity, frag2, frag3);
-                System.out.println("✅ frag1 recovered via XOR.");
+                System.out.println(" frag1 recovered via XOR.");
             } else if (frag2 == null) {
                 frag2 = xorRecover(parity, frag1, frag3);
-                System.out.println("✅ frag2 recovered via XOR.");
+                System.out.println(" frag2 recovered via XOR.");
             } else {
                 frag3 = xorRecover(parity, frag1, frag2);
-                System.out.println("✅ frag3 recovered via XOR.");
+                System.out.println(" frag3 recovered via XOR.");
             }
         }
 
@@ -112,7 +112,7 @@ public class StorageService {
         out.write(frag2);
         out.write(frag3);
 
-        System.out.println("✅ File reconstructed successfully. Total: " + out.size() + " bytes");
+        System.out.println(" File reconstructed successfully. Total: " + out.size() + " bytes");
         return out.toByteArray();
     }
 

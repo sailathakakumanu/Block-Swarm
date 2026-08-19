@@ -53,12 +53,13 @@ public class BlockchainService {
             validateContractExists();
             System.out.println("🔗 Connected to Blockchain & verified Smart Contract at: " + contractAddress);
         } catch (Exception e) {
-            System.err.println("\n🔥\n🔥 " + e.getMessage() + "\n🔥\n");
+            System.err.println(" + e.getMessage() + ");
             throw new RuntimeException("Smart contract validation failed on startup: " + contractAddress, e);
         }
     }
 
-    // ─── Core helpers ────────────────────────────────────────────────────────
+    // ─── Core helpers ─------------
+    
 
     private TxResult sendTransaction(Function function) throws Exception {
         String encodedFunction = FunctionEncoder.encode(function);
@@ -89,12 +90,12 @@ public class BlockchainService {
 
         EthSendTransaction sent = web3j.ethSendTransaction(tx).send();
         if (sent.hasError()) {
-            System.err.println("🛑 Web3j TX Error: " + sent.getError().getMessage());
-            throw new RuntimeException("❌ TX Error: " + sent.getError().getMessage());
+            System.err.println(" Web3j TX Error: " + sent.getError().getMessage());
+            throw new RuntimeException("TX Error: " + sent.getError().getMessage());
         }
 
         String txHash = sent.getTransactionHash();
-        System.out.println("📦 TX Sent. Hash: " + txHash);
+        System.out.println(" TX Sent. Hash: " + txHash);
 
         Thread.sleep(2000); // Wait for Ganache
 
@@ -103,13 +104,13 @@ public class BlockchainService {
         web3j.ethGetTransactionReceipt(txHash).send()
                 .getTransactionReceipt().ifPresentOrElse(r -> {
                     blockNum[0] = r.getBlockNumber().longValue();
-                    System.out.println("✅ TX Mined in block: " + r.getBlockNumber());
+                    System.out.println(" TX Mined in block: " + r.getBlockNumber());
                     if (!r.isStatusOK()) {
-                        System.err.println("⚠️  TX REVERTED on-chain!");
+                        System.err.println("  TX REVERTED on-chain!");
                         isReverted[0] = true;
                     }
                 }, () -> {
-                    System.err.println("⏳ TX still pending or not found in block.");
+                    System.err.println(" TX still pending or not found in block.");
                 });
 
         if (isReverted[0]) {
@@ -139,7 +140,7 @@ public class BlockchainService {
                 Arrays.asList(new Utf8String(fileHash), new Utf8String(encryptedKey)),
                 List.of());
         TxResult result = sendTransaction(function);
-        System.out.println("📂 storeFile complete — block #" + result.blockNumber);
+        System.out.println("storeFile complete — block #" + result.blockNumber);
         return result;
     }
 
@@ -151,7 +152,7 @@ public class BlockchainService {
                 Arrays.asList(new Utf8String(fileHash), new Address(ownerAddress)),
                 List.of());
         TxResult result = sendTransaction(function);
-        System.out.println("👤 addOwner complete — block #" + result.blockNumber);
+        System.out.println("addOwner complete — block #" + result.blockNumber);
         return result;
     }
 
@@ -173,7 +174,7 @@ public class BlockchainService {
         if (decoded.isEmpty())
             return false;
         boolean exists = (boolean) decoded.get(0).getValue();
-        System.out.println("🔍 fileExists on blockchain: " + exists);
+        System.out.println(" fileExists on blockchain: " + exists);
         return exists;
     }
 
@@ -195,7 +196,7 @@ public class BlockchainService {
         if (decoded.isEmpty())
             return false;
         boolean owner = (boolean) decoded.get(0).getValue();
-        System.out.println("🔐 isOwner [" + callerAddress + "]: " + owner);
+        System.out.println(" isOwner [" + callerAddress + "]: " + owner);
         return owner;
     }
 
@@ -207,7 +208,7 @@ public class BlockchainService {
                 Arrays.asList(new Utf8String(fileHash), new Address(callerAddress)),
                 List.of());
         TxResult result = sendTransaction(function);
-        System.out.println("📡 FileAccessed event emitted — block #" + result.blockNumber);
+        System.out.println(" FileAccessed event emitted — block #" + result.blockNumber);
         return result;
     }
 
